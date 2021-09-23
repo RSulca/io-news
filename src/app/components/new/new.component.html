@@ -1,0 +1,10 @@
+<ion-card color="light" [href]="n.url">
+    <ion-card-header>
+        <ion-card-subtitle>
+            <span class="t-primary">{{i+1}}. </span>
+            <span class="new-name">{{n.source.name}}</span>
+        </ion-card-subtitle>
+        <ion-card-title>{{n.title}}</ion-card-title>
+    </ion-card-header>
+    <ion-img *ngIf="n.urlToImage" [src]="n.urlToImage"></ion-img>
+</ion-card>
