@@ -8,4 +8,8 @@
 
 <ion-content [fullscreen]="true">
     <app-news [noticias]="noticias"></app-news>
+    <ion-infinite-scroll threshold="120px" position="bottom" (ionInfinite)="loadData($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Cargando...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>

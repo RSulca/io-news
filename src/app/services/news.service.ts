@@ -9,18 +9,40 @@ import { Articles } from '../interfaces/article';
 export class NewsService {
 
   URL: string;
-  params: HttpParams;
+  pageNews: number;
+  pageNewsbyCategory: number;
+  category: string;
 
   constructor(private http: HttpClient) {
     this.URL = `https://newsapi.org/v2/everything`;
-    this.params = new HttpParams();
-    this.params = this.params.set('apiKey', '367469995be6475cb2c610cc1b8d2617');
+    this.pageNews = 0;
+    this.pageNewsbyCategory = 0;
+    this.category = '';
   }
 
   getNews() {
-    this.params = this.params.set('q', 'Lapadula');
-    this.params = this.params.set('language', 'es');
-    return this.http.get<Articles>(`${this.URL}`, { params: this.params });
+    this.pageNews++;
+    let params = new HttpParams();
+    params = params.set('apiKey', '367469995be6475cb2c610cc1b8d2617');
+    params = params.set('q', 'Pedro Castillo');
+    params = params.set('page', this.pageNews);
+    params = params.set('pageSize', 20);
+    return this.http.get<Articles>(`${this.URL}`, { params });
   }
 
+  getNewsbyCategory(categoria: string) {
+    if (this.category === categoria) {
+      this.pageNewsbyCategory++;
+    } else {
+      this.pageNewsbyCategory = 1;
+      this.category = categoria;
+    }
+    let params = new HttpParams();
+    params = params.set('apiKey', '367469995be6475cb2c610cc1b8d2617');
+    params = params.set('category', categoria);
+    params = params.set('country', 'us');
+    params = params.set('page', this.pageNewsbyCategory);
+    params = params.set('pageSize', 20);
+    return this.http.get<Articles>(`https://newsapi.org/v2/top-headlines`, { params });
+  }
 }
